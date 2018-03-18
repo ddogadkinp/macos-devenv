@@ -1,0 +1,5 @@
+# Remove MacOS folder files
+.DS_Store
+
+# Remove ansible .retry files from source code
+*.retry

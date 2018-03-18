@@ -1,0 +1,13 @@
+---
+vagrant_min_version: 1.9.4
+# When using Parallels, we generally do not use NFS.
+vagrant_use_nfs: no
+
+vagrant_apps:
+  # - vagrant-bar
+  - vagrant-manager
+
+vagrant_plugins:
+  - vagrant-hostmanager
+  - vagrant-parallels
+  - vagrant-vbguest

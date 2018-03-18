@@ -1,0 +1,9 @@
+---
+
+- hosts: localhost
+  roles:
+    - {role: 'common', tags: 'common'}
+    - {role: 'virtualbox', tags: 'virtualbox'}
+    - {role: 'vagrant', tags: 'vagrant'}
+    - {role: 'docker', tags: 'docker'}
+    - {role: 'sublime', tags: 'sublime'}

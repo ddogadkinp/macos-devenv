@@ -1,3 +1,5 @@
 ---
+
 sublimetext_dl_source: "https://download.sublimetext.com"
-sublimetext_build: 3126
+sublimetext_build: 3143
+sublimetext_bin: "/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"

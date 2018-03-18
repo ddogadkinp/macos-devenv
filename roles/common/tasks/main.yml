@@ -1,0 +1,63 @@
+---
+## The bootstrap script makes sure that Homebrew is installed. Check the version.
+- name: Get version information for Homebrew
+  include: version.yml
+
+- name: Ensure that Homebrew is recent enough
+  homebrew:
+    update_homebrew: yes
+  register: brew_updated
+  when: brew_version | version_compare(homebrew_min_version, '<')
+
+- name: Update version information for Homebrew
+  include: version.yml
+  when: brew_updated | changed
+
+# Update homebrew and upgrade all packages
+- name: Upgrade previously brewed packages
+  homebrew:
+    upgrade_all: yes
+  when: brew_updated | changed
+
+- name: Ensure that bash completion is installed
+  homebrew:
+    name: bash-completion
+    state: present
+    update_homebrew: no
+
+- name: Ensure that git with bash completion is installed
+  homebrew:
+    name: git
+    state: present
+    update_homebrew: no
+
+- name: Tap Homebrew Cask repository
+  homebrew_tap:
+    name: caskroom/cask
+    state: present
+
+- name: Tap Homebrew PHP repository
+  homebrew_tap:
+    name: homebrew/php
+    state: present
+
+# Requires sudo? Move to bootstrap install brew step?
+- name: List the installed casks
+  command: brew cask list -1
+  register: brew_cask_list_raw
+  changed_when: false
+
+- name: Parse the list of installed casks
+  set_fact: brew_cask_list="{{ brew_cask_list_raw.stdout_lines }}"
+
+# - name: Install node.js and npm
+#   homebrew:
+#     name: node
+#     state: present
+#     install_options: with-npm
+#     update_homebrew: no
+#
+# - name: Install bundler (for gem)
+#   gem:
+#     name: bundler
+#     state: present
